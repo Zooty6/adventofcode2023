@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class Day1 implements Day {
-    final int day = 1;
+    private final int day = 1;
     @Override
     public String getSolution1() {
         return String.valueOf(getInputString().lines()

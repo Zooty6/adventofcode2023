@@ -1,6 +1,7 @@
 package dev.zooty;
 
 import dev.zooty.day1.Day1;
+import dev.zooty.day2.Day2;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.function.Predicate;
 public class AdventOfCode {
     // TODO: find all days automatically
     private final static List<Day> days = List.of(
-            new Day1()
+            new Day1(),
+            new Day2()
     );
 
     /**
