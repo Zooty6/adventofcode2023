@@ -9,7 +9,8 @@ public class Day1 implements Day {
     private final int day = 1;
     @Override
     public String getSolution1() {
-        return String.valueOf(getInputString().lines()
+        return String.valueOf(getInputString()
+                .lines()
                 .map(CalibrationValue::new)
                 .map(CalibrationValue::getCalibrationValue)
                 .mapToInt(Integer::intValue)
@@ -18,7 +19,8 @@ public class Day1 implements Day {
 
     @Override
     public String getSolution2() {
-        return String.valueOf(getInputString().lines()
+        return String.valueOf(getInputReader()
+                .lines()
                 .map(CalibrationValueWithLetters::new)
                 .map(CalibrationValueWithLetters::getCalibrationValue)
                 .mapToInt(Integer::intValue)

@@ -34,8 +34,6 @@ public class CalibrationValueWithLetters {
     }
 
     private int calculateSecondValue(String line) {
-        List<Integer> digitsInLineReverse = getDigitsInLineReverse(line);
-        System.out.println(digitsInLineReverse.stream().map(String::valueOf).collect(Collectors.joining(",")));
         return getDigitsInLineReverse(line).getFirst();
     }
 

@@ -1,6 +1,5 @@
 package dev.zooty.day2;
 
-
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -22,8 +21,10 @@ public final class Game {
                 .findAny()
                 .orElseThrow();
         id = Integer.parseInt(matcher.group("id"));
-        grabs = Arrays.stream(matcher.group("data").split("; "))
-                .map(Grab::new).toList();
+        grabs = Arrays.stream(matcher.group("data")
+                        .split("; "))
+                .map(Grab::new)
+                .toList();
     }
 
     public boolean hasAtLeast(Collection<HomogeneousCubeSet> cubes) {
