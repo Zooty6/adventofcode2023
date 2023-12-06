@@ -11,6 +11,7 @@ public interface Day {
     int getDay();
     String getSolution1();
     String getSolution2();
+
     @SneakyThrows
     default String getInputString() {
         return new String(Objects.requireNonNull(
