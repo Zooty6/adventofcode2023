@@ -64,6 +64,15 @@ public class Almanac {
         }
     }
 
+    private long iteratorUpdate(long iterator, List<CategoryMap> categoryMaps) {
+        for (CategoryMap categoryMap : categoryMaps) {
+            if (inRange(iterator, categoryMap.getDestinationStart(), categoryMap.getDestinationEnd())) {
+                return categoryMap.getSourceStart() + (iterator - categoryMap.getDestinationStart());
+            }
+        }
+        return iterator;
+    }
+
     private boolean inRange(long number, long rangeA, long rangeB) {
         long small = Math.min(rangeA, rangeB);
         long big = Math.max(rangeA, rangeB);
@@ -85,19 +94,10 @@ public class Almanac {
 
     private long mapSeed(List<CategoryMap> categoryMaps, long id) {
         return categoryMaps.parallelStream()
-                .filter(categoryMap -> categoryMap.getSourceStart() <= id && categoryMap.getSourceStart() + categoryMap.getRange() > id)
+                .filter(categoryMap -> categoryMap.getSourceStart() <= id && categoryMap.getSourceEnd() > id)
                 .map(categoryMap -> categoryMap.getDestinationStart() + (id - categoryMap.getSourceStart()))
                 .findAny()
                 .orElse(id);
-    }
-
-    private long iteratorUpdate(long iterator, List<CategoryMap> categoryMaps) {
-        for (CategoryMap categoryMap : categoryMaps) {
-            if (inRange(iterator, categoryMap.getDestinationStart(), categoryMap.getDestinationEnd())) {
-                return categoryMap.getSourceStart() + (iterator - categoryMap.getDestinationStart());
-            }
-        }
-        return iterator;
     }
 
     private static List<CategoryMap> parseCategoryMap(String input, String category) {
