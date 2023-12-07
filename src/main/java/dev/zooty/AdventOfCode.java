@@ -21,7 +21,14 @@ public class AdventOfCode {
     public static void main(String[] args) {
         getDaySolutions()
                 .filter(filterByAppArguments(args))
-                .forEach(day -> System.out.printf("Day %d solutions:%n    1: %s, 2: %s%n", day.getDay(), day.getSolution1(), day.getSolution2()));
+                .forEach(day -> {
+                    long startMillis = System.currentTimeMillis();
+                    System.out.printf("Day %d solutions:%n    1: %s, 2: %s (took %d milliseconds)%n",
+                            day.getDay(),
+                            day.getSolution1(),
+                            day.getSolution2(),
+                            System.currentTimeMillis() - startMillis);
+                });
     }
 
     private static Predicate<Day> filterByAppArguments(String[] args) {
