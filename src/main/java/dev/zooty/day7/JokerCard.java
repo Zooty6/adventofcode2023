@@ -1,10 +1,12 @@
 package dev.zooty.day7;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Arrays;
 
 @Getter
+@AllArgsConstructor
 public enum JokerCard {
     cJ('J'),
     c2('2'),
@@ -20,10 +22,6 @@ public enum JokerCard {
     cK('K'),
     cA('A');
     private final char value;
-
-    JokerCard(char value) {
-        this.value = value;
-    }
 
     public static JokerCard of(char character) {
         return Arrays.stream(JokerCard.values())

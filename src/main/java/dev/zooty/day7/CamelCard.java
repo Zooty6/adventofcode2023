@@ -1,10 +1,12 @@
 package dev.zooty.day7;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Arrays;
 
 @Getter
+@AllArgsConstructor
 public enum CamelCard {
     c2('2'),
     c3('3'),
@@ -20,10 +22,6 @@ public enum CamelCard {
     cK('K'),
     cA('A');
     private final char value;
-
-    CamelCard(char value) {
-        this.value = value;
-    }
 
     public static CamelCard of(char character) {
         return Arrays.stream(CamelCard.values())
