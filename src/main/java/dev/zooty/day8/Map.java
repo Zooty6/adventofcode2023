@@ -10,16 +10,16 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Map {
-    private static final String mapRegex = "(?<label>.*)\\s=\\s\\((?<left>.*),\\s(?<right>.*)\\)";
-    private static final Pattern mapPattern = Pattern.compile(mapRegex);
+    private static final String MAP_REGEX = "(?<label>.*)\\s=\\s\\((?<left>.*),\\s(?<right>.*)\\)";
+    private static final Pattern mapPattern = Pattern.compile(MAP_REGEX);
     private final DirectionNode startingDirection;
-    private final Set<MapNode> map;
+    private final Set<MapNode> mapNodes;
 
     public Map(String input) {
         String firstLine = input.lines().findFirst().orElseThrow();
         startingDirection = new DirectionNode(Direction.of(firstLine.charAt(0)));
         createDirectionChain(firstLine);
-        map = input.lines()
+        mapNodes = input.lines()
                 .skip(2)
                 .map(line -> mapPattern.matcher(line).results().findAny().orElseThrow().group("label"))
                 .map(MapNode::new)
@@ -41,7 +41,7 @@ public class Map {
         MapNode endMapNode = getMapNodeByLabel("ZZZ");
         DirectionNode currentDirection = startingDirection;
         while (!currentMapNode.equals(endMapNode)) {
-            currentMapNode = currentDirection.getDirection() == Direction.left ?
+            currentMapNode = currentDirection.getDirection() == Direction.LEFT ?
                     currentMapNode.getLeftNode() :
                     currentMapNode.getRightNode();
             currentDirection = currentDirection.getNextDirection();
@@ -51,7 +51,7 @@ public class Map {
     }
 
     public long getMinStepsToZForAllA() {
-        List<MapNodeIterator> steppingNodes = map.parallelStream()
+        List<MapNodeIterator> steppingNodes = mapNodes.parallelStream()
                 .filter(mapNode -> mapNode.getLabel().endsWith("A"))
                 .map(MapNodeIterator::new)
                 .toList();
@@ -77,7 +77,7 @@ public class Map {
     }
 
     private MapNode getMapNodeByLabel(String label) {
-        return map.stream()
+        return mapNodes.stream()
                 .filter(mapNode -> mapNode.getLabel().equals(label))
                 .findAny()
                 .orElseThrow();

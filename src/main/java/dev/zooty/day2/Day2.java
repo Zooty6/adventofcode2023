@@ -9,13 +9,12 @@ import java.util.Set;
 public class Day2 implements Day {
     private final int day = 2;
 
-
     @Override
     public String getSolution1() {
         Set<HomogeneousCubeSet> atLeastGrabs = Set.of(
-                new HomogeneousCubeSet(Color.red, 12),
-                new HomogeneousCubeSet(Color.green, 13),
-                new HomogeneousCubeSet(Color.blue, 14));
+                new HomogeneousCubeSet(Color.RED, 12),
+                new HomogeneousCubeSet(Color.GREEN, 13),
+                new HomogeneousCubeSet(Color.BLUE, 14));
         return String.valueOf(getInputReader()
                 .lines()
                 .map(Game::new)

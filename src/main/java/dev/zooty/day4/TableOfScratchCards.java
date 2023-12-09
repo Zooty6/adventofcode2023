@@ -23,7 +23,7 @@ public class TableOfScratchCards {
     /**
      * @deprecated as it runs with a too high complexity, resulting it not finishing in a desired time frame.
      */
-    @Deprecated
+    @Deprecated(since = "v1")
     public void processByModelling() {
         for (int cardIterator = 0; cardIterator < cards.size(); cardIterator++) {
             var scratchCard = cards.get(cardIterator);

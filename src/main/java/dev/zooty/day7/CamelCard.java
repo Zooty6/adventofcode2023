@@ -8,19 +8,19 @@ import java.util.Arrays;
 @Getter
 @AllArgsConstructor
 public enum CamelCard {
-    c2('2'),
-    c3('3'),
-    c4('4'),
-    c5('5'),
-    c6('6'),
-    c7('7'),
-    c8('8'),
-    c9('9'),
-    cT('T'),
-    cJ('J'),
-    cQ('Q'),
-    cK('K'),
-    cA('A');
+    CARD_2('2'),
+    CARD_3('3'),
+    CARD_4('4'),
+    CARD_5('5'),
+    CARD_6('6'),
+    CARD_7('7'),
+    CARD_8('8'),
+    CARD_9('9'),
+    CARD_T('T'),
+    CARD_J('J'),
+    CARD_Q('Q'),
+    CARD_K('K'),
+    CARD_A('A');
     private final char value;
 
     public static CamelCard of(char character) {

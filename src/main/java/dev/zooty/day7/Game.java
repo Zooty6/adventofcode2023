@@ -9,7 +9,7 @@ public class Game implements Comparable<Game> {
 
     public Game(String line, GameType gameType) {
         String[] split = line.split(" ");
-        hand = gameType == GameType.camel ? new CamelHand(split[0]) : new JokerHand(split[0]);
+        hand = gameType == GameType.CAMEL ? new CamelHand(split[0]) : new JokerHand(split[0]);
         bid = Integer.parseInt(split[1]);
     }
 
@@ -19,7 +19,7 @@ public class Game implements Comparable<Game> {
     }
 
     public enum GameType {
-        camel,
-        joker
+        CAMEL,
+        JOKER
     }
 }

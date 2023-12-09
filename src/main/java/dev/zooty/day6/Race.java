@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 public class Race {
-    private final static String timeRegex = "Time:\\s+(?<data>(\\d+\\s*)+)";
-    private final static String distanceRegex = "Distance:\\s+(?<data>(\\d+\\s*)+)";
-    private final static Pattern timePattern = Pattern.compile(timeRegex);
-    private final static Pattern distancePattern = Pattern.compile(distanceRegex);
+    private static final String TIME_REGEX = "Time:\\s+(?<data>(\\d+\\s*)+)";
+    private static final String DISTANCE_REGEX = "Distance:\\s+(?<data>(\\d+\\s*)+)";
+    private static final Pattern timePattern = Pattern.compile(TIME_REGEX);
+    private static final Pattern distancePattern = Pattern.compile(DISTANCE_REGEX);
     private final List<Integer> times = new ArrayList<>();
     private final List<Integer> distances = new ArrayList<>();
     private final List<Game> games = new ArrayList<>();

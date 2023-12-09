@@ -8,9 +8,9 @@ import java.util.Arrays;
 @Getter
 @AllArgsConstructor
 public enum Color {
-    red("red"),
-    green("green"),
-    blue("blue");
+    RED("red"),
+    GREEN("green"),
+    BLUE("blue");
 
     private final String value;
     public static Color of(String value) {

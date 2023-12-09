@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import static dev.zooty.day7.JokerCard.cJ;
+import static dev.zooty.day7.JokerCard.CARD_J;
 
 @Getter
 public class JokerHand extends Hand {
@@ -30,12 +30,12 @@ public class JokerHand extends Hand {
 
     @Override
     Type calculateType() {
-        if (cards.contains(cJ)) {
+        if (cards.contains(CARD_J)) {
             return Arrays.stream(JokerCard.values())
                     .parallel()
                     .map(newJokerCard -> {
                         var replacingList = new ArrayList<>(cards);
-                        replacingList.replaceAll(replacing -> replacing == cJ ? newJokerCard : replacing);
+                        replacingList.replaceAll(replacing -> replacing == CARD_J ? newJokerCard : replacing);
                         return replacingList;
                     })
                     .map(this::calculateTypeIgnoringJoker)

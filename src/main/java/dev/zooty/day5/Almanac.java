@@ -6,16 +6,16 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public class Almanac {
-    private final static String mapsRegex = "%s map:(?<maps>(\\n.+)*)";
-    private final static String SEED_TO_SOIL = "seed-to-soil";
-    private final static String SOIL_TO_FERTILIZER = "soil-to-fertilizer";
-    private final static String FERTILIZER_TO_WATER = "fertilizer-to-water";
-    private final static String WATER_TO_LIGHT = "water-to-light";
-    private final static String LIGHT_TO_TEMPERATURE = "light-to-temperature";
-    private final static String TEMPERATURE_TO_HUMIDITY = "temperature-to-humidity";
-    private final static String HUMIDITY_TO_LOCATION = "humidity-to-location";
-    private final static String seedRegex = "seeds:\\s(?<seeds>.*)";
-    private final static Pattern seedPattern = Pattern.compile(seedRegex);
+    private static final String MAPS_REGEX = "%s map:(?<maps>(\\n.+)*)";
+    private static final String SEED_TO_SOIL = "seed-to-soil";
+    private static final String SOIL_TO_FERTILIZER = "soil-to-fertilizer";
+    private static final String FERTILIZER_TO_WATER = "fertilizer-to-water";
+    private static final String WATER_TO_LIGHT = "water-to-light";
+    private static final String LIGHT_TO_TEMPERATURE = "light-to-temperature";
+    private static final String TEMPERATURE_TO_HUMIDITY = "temperature-to-humidity";
+    private static final String HUMIDITY_TO_LOCATION = "humidity-to-location";
+    private static final String SEED_REGEX = "seeds:\\s(?<seeds>.*)";
+    private static final Pattern seedPattern = Pattern.compile(SEED_REGEX);
     private final List<SeedRange> seedRanges;
     private final List<CategoryMap> seedToSoilCategoryMap;
     private final List<CategoryMap> soilToFertilizerCategoryMap;
@@ -101,7 +101,7 @@ public class Almanac {
     }
 
     private static List<CategoryMap> parseCategoryMap(String input, String category) {
-        return Pattern.compile(mapsRegex.formatted(category))
+        return Pattern.compile(MAPS_REGEX.formatted(category))
                 .matcher(input)
                 .results()
                 .findAny()

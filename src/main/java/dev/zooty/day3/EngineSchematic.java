@@ -7,10 +7,10 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 public class EngineSchematic {
-    private final static String numberRegex = "\\d+";
-    private final static Pattern numberPattern = Pattern.compile(numberRegex);
-    private final static String gearRegex = "\\*+";
-    private final static Pattern gearPattern = Pattern.compile(gearRegex);
+    private static final String NUMBER_REGEX = "\\d+";
+    private static final Pattern numberPattern = Pattern.compile(NUMBER_REGEX);
+    private static final String GEAR_REGEX = "\\*+";
+    private static final Pattern gearPattern = Pattern.compile(GEAR_REGEX);
     private final String[] map;
 
     public EngineSchematic(String schematicMap) {

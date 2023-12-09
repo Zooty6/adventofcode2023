@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 
 @Getter
 public class CalibrationValueWithLetters {
-    private final int firstValue;
-    private final int secondValue;
     private static final Map<String, Integer> digits = new HashMap<>();
     private static final Map<String, Integer> reversedDigits = new HashMap<>();
-    private static final String digitRegex;
+    private static final String DIGIT_REGEX;
     private static final Pattern digitPattern;
-    private static final String reversedRegex;
+    private static final String REVERSED_REGEX;
     private static final Pattern reversedPattern;
+    private final int firstValue;
+    private final int secondValue;
 
     public CalibrationValueWithLetters(String line) {
         firstValue = calculateFirstValue(line);
@@ -43,7 +43,7 @@ public class CalibrationValueWithLetters {
                 .results()
                 .map(MatchResult::group)
                 .map(digits::get)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private List<Integer> getDigitsInLineReverse(String line) {
@@ -52,7 +52,7 @@ public class CalibrationValueWithLetters {
                 .results()
                 .map(MatchResult::group)
                 .map(reversedDigits::get)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 
@@ -75,10 +75,10 @@ public class CalibrationValueWithLetters {
         digits.put("7", 7);
         digits.put("8", 8);
         digits.put("9", 9);
-        digitRegex = '(' + String.join("|", digits.keySet()) + ")";
-        digitPattern = Pattern.compile(digitRegex);
+        DIGIT_REGEX = '(' + String.join("|", digits.keySet()) + ")";
+        digitPattern = Pattern.compile(DIGIT_REGEX);
         digits.keySet().forEach(key -> reversedDigits.put(new StringBuilder(key).reverse().toString(), digits.get(key)));
-        reversedRegex = '(' + String.join("|", reversedDigits.keySet()) + ")";
-        reversedPattern = Pattern.compile(reversedRegex);
+        REVERSED_REGEX = '(' + String.join("|", reversedDigits.keySet()) + ")";
+        reversedPattern = Pattern.compile(REVERSED_REGEX);
     }
 }

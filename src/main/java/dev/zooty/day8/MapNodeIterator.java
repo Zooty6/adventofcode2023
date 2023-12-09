@@ -12,8 +12,8 @@ public class MapNodeIterator {
     @SneakyThrows
     public void next(DirectionNode.Direction direction) {
         switch (direction) {
-            case left -> mapNode = mapNode.getLeftNode();
-            case right -> mapNode = mapNode.getRightNode();
+            case LEFT -> mapNode = mapNode.getLeftNode();
+            case RIGHT -> mapNode = mapNode.getRightNode();
             default -> throw new IllegalAccessException();
         }
     }

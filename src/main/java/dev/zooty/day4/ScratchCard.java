@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 @Getter
 public class ScratchCard {
-    private final static String cardRegex =
+    private static final String CARD_REGEX =
             "(Card\\s+)(?<id>\\d+)(:\\s+)(?<winningNumbers>(\\d+\\s+)+)(\\|\\s+)(?<numbers>(\\d+\\s*)+)";
-    private final static Pattern cardPattern = Pattern.compile(cardRegex);
+    private static final Pattern cardPattern = Pattern.compile(CARD_REGEX);
     private final int id;
     private final List<Integer> winningNumbers;
     private final List<Integer> numbers;
@@ -48,7 +48,7 @@ public class ScratchCard {
     }
 
     public int getPoints() {
-        return (int) Math.pow(2, getWinningCount() - 1);
+        return (int) Math.pow(2, getWinningCount() - 1f);
     }
 
     public ScratchCard copy() {

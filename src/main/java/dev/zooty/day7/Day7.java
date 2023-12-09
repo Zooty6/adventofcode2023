@@ -9,11 +9,11 @@ public class Day7 implements Day {
 
     @Override
     public String getSolution1() {
-        return String.valueOf(new PokerParty(getInputReader(), Game.GameType.camel).getTotalWinning());
+        return String.valueOf(new PokerParty(getInputReader(), Game.GameType.CAMEL).getTotalWinning());
     }
 
     @Override
     public String getSolution2() {
-        return String.valueOf(new PokerParty(getInputReader(), Game.GameType.joker).getTotalWinning());
+        return String.valueOf(new PokerParty(getInputReader(), Game.GameType.JOKER).getTotalWinning());
     }
 }

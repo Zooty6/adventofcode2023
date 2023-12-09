@@ -25,11 +25,11 @@ public class OasisHistory {
 
     public OasisHistory getDifferences() {
         if (listHasNonZeroValue() && this.differences == null) {
-            List<Integer> differences = new ArrayList<>();
+            List<Integer> calculatedDiffs = new ArrayList<>();
             for (int i = 1; i < values.size(); i++) {
-                differences.add(values.get(i) - values.get(i - 1));
+                calculatedDiffs.add(values.get(i) - values.get(i - 1));
             }
-            this.differences = new OasisHistory(differences);
+            this.differences = new OasisHistory(calculatedDiffs);
         }
         return this.differences;
     }

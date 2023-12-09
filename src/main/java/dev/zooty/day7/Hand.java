@@ -12,13 +12,13 @@ public abstract class Hand implements Comparable<Hand> {
     Type calculateTypeIgnoringJoker(List<JokerCard> cards) {
         var grouped = cards.parallelStream()
                 .collect(Collectors.groupingBy(card -> card, Collectors.counting()));
-        if (grouped.values().stream().anyMatch(aLong -> aLong == 5)) return Type.fiveOfAKind;
-        if (grouped.values().stream().anyMatch(aLong -> aLong == 4)) return Type.fourOfAKind;
+        if (grouped.values().stream().anyMatch(aLong -> aLong == 5)) return Type.FIVE_OF_A_KIND;
+        if (grouped.values().stream().anyMatch(aLong -> aLong == 4)) return Type.FOUR_OF_A_KIND;
         if (grouped.values().stream().anyMatch(aLong -> aLong == 3) &&
-                grouped.values().stream().anyMatch(aLong -> aLong == 2)) return Type.fullHouse;
-        if (grouped.values().stream().anyMatch(aLong -> aLong == 3)) return Type.threeOfAKind;
-        if (grouped.values().stream().filter(aLong -> aLong == 2).count() == 2) return Type.twoPair;
-        if (grouped.values().stream().filter(aLong -> aLong == 2).count() == 1) return Type.onePair;
-        return Type.highCard;
+                grouped.values().stream().anyMatch(aLong -> aLong == 2)) return Type.FULL_HOUSE;
+        if (grouped.values().stream().anyMatch(aLong -> aLong == 3)) return Type.THREE_OF_A_KIND;
+        if (grouped.values().stream().filter(aLong -> aLong == 2).count() == 2) return Type.TWO_PAIR;
+        if (grouped.values().stream().filter(aLong -> aLong == 2).count() == 1) return Type.ONE_PAIR;
+        return Type.HIGH_CARD;
     }
 }

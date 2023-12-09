@@ -21,8 +21,8 @@ public class DirectionNode {
 
     @AllArgsConstructor
     public enum Direction {
-        left('L'),
-        right('R');
+        LEFT('L'),
+        RIGHT('R');
         private final char value;
 
         public static Direction of(char character) {

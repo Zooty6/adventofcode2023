@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 
 @Getter
 public final class Game {
-    private static final String regex = "Game\\s(?<id>\\d+):\\s(?<data>.+)";
-    private static final Pattern pattern = Pattern.compile(regex);
+    private static final String REGEX = "Game\\s(?<id>\\d+):\\s(?<data>.+)";
+    private static final Pattern pattern = Pattern.compile(REGEX);
     private final int id;
     private final List<Grab> grabs;
 

@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 @Getter
 @AllArgsConstructor
 public class HomogeneousCubeSet {
-    private final static String regex = "(?<amount>\\d+)\\s(?<color>.+)";
-    private final static Pattern pattern = Pattern.compile(regex);
+    private static final String REGEX = "(?<amount>\\d+)\\s(?<color>.+)";
+    private static final Pattern pattern = Pattern.compile(REGEX);
     private final Color color;
     private final int amount;
 
