@@ -60,11 +60,9 @@ public class Map {
     }
 
     private long getSmallestMultiply(long numA, long numB) {
-        long small = Math.min(numA, numB);
-        long big = Math.max(numA, numB);
-        long result = big;
-        while (result % small != 0) {
-            result += big;
+        long result = numA;
+        while (result % numB != 0) {
+            result += numA;
         }
         return result;
     }
