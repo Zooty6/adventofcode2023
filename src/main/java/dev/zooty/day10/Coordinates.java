@@ -1,6 +1,6 @@
 package dev.zooty.day10;
 
-record Coordinates(int x, int y) {
+public record Coordinates(int x, int y) {
     public Coordinates of(Direction direction) {
         return switch (direction) {
             case UP -> new Coordinates(x - 1, y);

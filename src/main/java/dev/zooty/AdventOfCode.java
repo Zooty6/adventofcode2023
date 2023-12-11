@@ -3,6 +3,7 @@ package dev.zooty;
 import lombok.SneakyThrows;
 import org.reflections.Reflections;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -25,10 +26,18 @@ public class AdventOfCode {
                     long startMillis = System.currentTimeMillis();
                     System.out.printf("Day %d solutions:%n    1: %s, 2: %s (took %d milliseconds)%n",
                             day.getDay(),
-                            day.getSolution1(),
-                            day.getSolution2(),
+                            invoke("getSolution1", day),
+                            invoke("getSolution2", day),
                             System.currentTimeMillis() - startMillis);
                 });
+    }
+
+    @SneakyThrows
+    private static String invoke(String methodName, Day day) {
+        Method method = day.getClass().getMethod(methodName);
+        return method.isAnnotationPresent(Ignored.class) ?
+                "IGNORED" :
+                (String) method.invoke(day);
     }
 
     private static Predicate<Day> filterByAppArguments(String[] args) {
