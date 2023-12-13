@@ -15,9 +15,6 @@ public class PipeMap {
     private static final Character SOUTH_EAST_PIPE = 'F';
     private static final Character SOUTH_WEST_PIPE = '7';
     private static final Character START_PIPE = 'S';
-    private static final Character TILE = '.';
-    private static final Character FILLER = 'o';
-    private static final Character EMPTY = 'x';
     private static final Map<Character, Set<Coordinates.Direction>> characterDirections = Map.of(
             VERTICAL_PIPE, Set.of(UP, Coordinates.Direction.DOWN),
             HORIZONTAL_PIPE, Set.of(Coordinates.Direction.LEFT, Coordinates.Direction.RIGHT),
@@ -29,8 +26,7 @@ public class PipeMap {
     );
 
     private final Pipe startPipe;
-    private List<String> mapLines;
-    private final Set<Coordinates> visitedCoordinates = new HashSet<>();
+    private final List<String> mapLines;
 
     public PipeMap(String map) {
 
@@ -48,100 +44,58 @@ public class PipeMap {
     }
 
     public int getEnclosedTiles() {
-        expand();
-        ArrayList<Coordinates> foundEnclosedTiles = new ArrayList<>();
-        for (int i = 0; i < mapLines.size(); i++) {
-            String line = mapLines.get(i);
-            for (int j = 0; j < line.length(); j++) {
-                char character = line.charAt(j);
-                Coordinates visitingCoordinate = new Coordinates(i, j);
-                if (character == TILE && !visitedCoordinates.contains(visitingCoordinate)) {
-                    visitedCoordinates.add(visitingCoordinate);
-                    Enclosure enclosedTiles = findEnclosedTiles(visitingCoordinate);
-                    if (enclosedTiles.isEnclosed()) {
-                        foundEnclosedTiles.addAll(enclosedTiles.getEnclosedCoordinates());
-                    }
+        int enclosedTiles = 0;
+        for (int x = 0; x < mapLines.size(); x++) {
+            String line = mapLines.get(x);
+            EnclosureStatus enclosureStatus = new EnclosureStatus();
+            for (int y = 0; y < line.length(); y++) {
+                char character = line.charAt(y);
+                if (inMainLoop(new Coordinates(x, y))) {
+                    enclosureStatus.nextState(character);
+                } else if (enclosureStatus.isEnclosed()) {
+                    enclosedTiles++;
                 }
             }
         }
-        return foundEnclosedTiles.size();
+        return enclosedTiles;
     }
 
-    private boolean isEnclosed(Coordinates coordinates) {
-        char character = getCharAtCoordinates(coordinates);
-        return (character == TILE || character == FILLER) && !visitedCoordinates.contains(coordinates);
+
+    @Data
+    private static class EnclosureStatus {
+        private boolean isEnclosed = false;
+        private Character previousHit = null;
+
+        public void nextState(char character) {
+            if (isVertical(character)) {
+                if (previousHit == null ||
+                        !(previousHit.equals(NORTH_EAST_PIPE) && SOUTH_WEST_PIPE.equals(character) ||
+                                previousHit.equals(SOUTH_EAST_PIPE) && NORTH_WEST_PIPE.equals(character))) {
+                    isEnclosed = !isEnclosed;
+                }
+                previousHit = character;
+            }
+        }
+
+        private boolean isVertical(char character) {
+            return character == VERTICAL_PIPE ||
+                    character == NORTH_EAST_PIPE ||
+                    character == NORTH_WEST_PIPE ||
+                    character == SOUTH_EAST_PIPE ||
+                    character == SOUTH_WEST_PIPE ||
+                    character == START_PIPE;
+        }
     }
 
     private boolean inMainLoop(Coordinates coordinates) {
         Pipe iterator = startPipe;
-         do {
+        do {
             if (iterator.getCoordinates().equals(coordinates)) {
                 return true;
             }
             iterator = iterator.getAfter();
         } while (iterator != startPipe);
         return false;
-    }
-
-    private Enclosure findEnclosedTiles(Coordinates coordinates) {
-        Enclosure enclosedCoordinates = new Enclosure();
-
-        if (getCharAtCoordinates(coordinates) != FILLER) {
-            enclosedCoordinates.getEnclosedCoordinates().add(coordinates);
-        }
-
-        if (Arrays.stream(Coordinates.Direction.values())
-                .map(coordinates::of)
-                .map(this::getCharAtCoordinates)
-                .anyMatch(character -> Objects.equals(character, EMPTY))) {
-            enclosedCoordinates.setEnclosed(false);
-        }
-        Arrays.stream(Coordinates.Direction.values())
-                .map(coordinates::of)
-                .filter(this::isEnclosed)
-                .forEach(toCoordinate -> {
-                    visitedCoordinates.add(toCoordinate);
-                    Enclosure enclosure = findEnclosedTiles(toCoordinate);
-                    if (!enclosure.isEnclosed()) {
-                        enclosedCoordinates.setEnclosed(false);
-                    }
-                    enclosedCoordinates.getEnclosedCoordinates().addAll(enclosure.getEnclosedCoordinates());
-                });
-        return enclosedCoordinates;
-    }
-
-    @Data
-    private static class Enclosure {
-        boolean isEnclosed = true;
-        List<Coordinates> enclosedCoordinates = new ArrayList<>();
-    }
-
-    private void expand() {
-        ArrayList<String> newMap = new ArrayList<>();
-        for (int i = 0; i < mapLines.size(); i++) {
-            StringBuilder originalLineBuilder = new StringBuilder();
-            StringBuilder newLineBuilder = new StringBuilder();
-            String line = mapLines.get(i);
-            for (int j = 0; j < line.length(); j++) {
-                char thisChar = line.charAt(j);
-                char left = j == 0 ? TILE : mapLines.get(i).charAt(j - 1);
-                if (j != 0) {
-                    originalLineBuilder.append(Set.of(HORIZONTAL_PIPE, SOUTH_EAST_PIPE, NORTH_EAST_PIPE, START_PIPE).contains(left) ? HORIZONTAL_PIPE : FILLER);
-                }
-
-                originalLineBuilder.append(thisChar == TILE || !inMainLoop(new Coordinates(i, j)) ? TILE : thisChar);
-                if (i != 0) {
-                    char above = mapLines.get(i - 1).charAt(j);
-                    newLineBuilder.append(Set.of(VERTICAL_PIPE, SOUTH_EAST_PIPE, SOUTH_WEST_PIPE, START_PIPE).contains(above) ? VERTICAL_PIPE : FILLER);
-                    if (j < line.length() - 1) {
-                        newLineBuilder.append(FILLER);
-                    }
-                }
-            }
-            if (!newLineBuilder.isEmpty()) { newMap.add(newLineBuilder.toString()); }
-            newMap.add(originalLineBuilder.toString());
-        }
-        this.mapLines = newMap;
     }
 
     private void traversePipe(Pipe current, int startingStep) {

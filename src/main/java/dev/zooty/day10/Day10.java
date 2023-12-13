@@ -1,7 +1,6 @@
 package dev.zooty.day10;
 
 import dev.zooty.Day;
-import dev.zooty.Ignored;
 import lombok.Getter;
 
 @Getter
@@ -13,7 +12,6 @@ public class Day10 implements Day {
     }
 
     @Override
-    @Ignored
     public String getSolution2() {
         return String.valueOf(new PipeMap(getInputString()).getEnclosedTiles());
     }
