@@ -36,8 +36,12 @@ public class AdventOfCode {
     private static String invoke(String methodName, Day day) {
         Method method = day.getClass().getMethod(methodName);
         return method.isAnnotationPresent(Ignored.class) ?
-                "IGNORED" :
+                "IGNORED" +  getReason(method.getAnnotation(Ignored.class)) :
                 (String) method.invoke(day);
+    }
+
+    private static String getReason(Ignored annotation) {
+        return (annotation.reason().isEmpty() ? "" : "(%s)".formatted(annotation.reason()));
     }
 
     private static Predicate<Day> filterByAppArguments(String[] args) {
