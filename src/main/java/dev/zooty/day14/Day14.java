@@ -17,6 +17,6 @@ public class Day14 implements Day {
     @Override
     public String getSolution2() {
         ReflectorDish reflectorDish = new ReflectorDish(getInputReader());
-        return String.valueOf(reflectorDish.balance(100)); // for some reason works with 100 cycles ¯\_(ツ)_/¯
+        return String.valueOf(reflectorDish.balance(1000)); // for some reason works with 100 cycles ¯\_(ツ)_/¯
     }
 }
